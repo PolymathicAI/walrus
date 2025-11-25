@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["walrus"]
+include = ["walrus*"]
 
 [project]
 name = "walrus"
@@ -21,7 +21,9 @@ dependencies = [
     "plotly>=5.0,<6",
     "the_well[benchmark] @ git+https://github.com/PolymathicAI/the_well.git@master",
     "timm>=1.0,<2",
-    "torch>=2.4, <=2.6",
+    "torch==2.5.1",
+    "torchvision==0.20.1",
+    "torchaudio==2.5.1",
     "torchinfo>=1.8.0,<2",
     "wandb>=0.17.9"
 ]
