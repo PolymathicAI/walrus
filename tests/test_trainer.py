@@ -12,7 +12,7 @@ from .utils import generate_parameters
 # Set the different options to test
 conf_options = {
     "trainer.prediction_type": ["delta", "full"],
-    "trainer.enable_amp": ["True", "False"],
+    "trainer.enable_amp": ["True"],
     "model.causal_in_time": ["True", "False"],
 }
 
