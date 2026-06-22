@@ -20,7 +20,7 @@
     <img src="assets/ArchitectureWIP.png" alt="Walrus schematic" width="600">
 </div>
 
-This repo is built for training and evaluating Walrus, a multi-domain foundation model for continuum dynamics trained primarily on fluid-like behaviors.
+This repo is built for training and evaluating Walrus, a multi-domain foundation model for continuum dynamics trained primarily on fluid-like systems.
 Walrus was trained on 19 different physical scenarios spanning 63 physical variables in both 2 and 3D. Walrus utilizes new tools for adaptive computation and improved stability
 in order to achieve accurate long-term rollouts while co-adapting sampling and distribution to improve training throughput despite handling varying dimensions, resolutions, and
 aspect ratios.
@@ -72,18 +72,19 @@ If you already have a local copy of the Well, you can skip straight to example 1
 
 ### Architecture
 
-Walrus uses and encoder-processor-decoder structure. Encoder/decoder are hMLPs/transposed hMLPs using stride modulation to dynamically adjust the
+Walrus uses an encoder-processor-decoder structure. Encoder/decoder are hMLPs/transposed hMLPs using stride modulation to dynamically adjust the
 internal resolution. The processor consists of blocks containing factorized space and time attention. 
 
 ### Patch Jittering
 
 Walrus suppressed the growth of long-run instabilities through the use of *patch jittering*. Patch jittering involves randomly translating the reference frame (with padding for boundaries)
-before each step. While the paper provides a more theoretical explanation of why this works, the core idea is that the specific downsampling pattern leads to predictable accumulation
+before each step. While the paper provides more theoretical insights on why this works, the core idea is that the specific downsampling pattern leads to predictable accumulation
 of error and that randomizing this process can help alleviate this pathology.
 
 ### Adaptive Compute
 
-To handle varying compute budgets and problem complexities, we also employ [stride modulation](https://arxiv.org/pdf/2507.09264) to allow users to adjust their downstream resolution. During pretraining, this was used to keep internal resolution fairly consistent (32/33 per dim in 2D, 16/17 in 3D). In this approach, the downsampling
+To handle varying compute budgets and problem complexities, we also employ [stride modulation](https://arxiv.org/pdf/2507.09264) to allow users to adjust
+their downstream resolution. During pretraining, this was used to keep internal resolution fairly consistent (32/33 per dim in 2D, 16/17 in 3D). In this approach, the downsampling
 layers of the encoder/decoder will dynamically adjust their stride based on a target internal resolution. 
 
 ### Efficient Training
@@ -105,9 +106,7 @@ For other queries, please reach out to the corresponding author: mmccabe@flatiro
 
 ## Acknowledgements
 
-Walrus is built by [Polymathic AI](https://polymathic-ai.org/) as part of our mission of advancing the frontier of AI for scientific application. Polymathic AI gratefully acknowledges funding from the Simons Foundation and Schmidt Sciences, LLC. This work was performed with compute from the Scientific Computing Core, a
-division of the Flatiron Institute, a division of the Simons Foundation and from the National AI Research Resource Pilot, including support from NVIDIA
-and NVIDIA’s DGX Cloud product which includes the NVIDIA AI Enterprise Software Platform.
+Walrus is built by [Polymathic AI](https://polymathic-ai.org/) as part of our mission of advancing the frontier of AI for scientific applications. Polymathic AI gratefully acknowledges funding from the Simons Foundation and Schmidt Sciences, LLC. This work was supported in part by the AI2050 program at Schmidt Sciences (Grant G-25-70028). Payel Mukhopadhyay thanks the Infosys-Cambridge AI centre for support. This work was performed with compute from the Scientific Computing Core, a division of the Flatiron Institute, a division of the Simons Foundation and from the National AI Research Resource Pilot, including support from NVIDIA and NVIDIA’s DGX Cloud product which includes the NVIDIA AI Enterprise Software Platform.
 
 ## Citing Walrus
 
