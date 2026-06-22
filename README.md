@@ -78,13 +78,12 @@ internal resolution. The processor consists of blocks containing factorized spac
 ### Patch Jittering
 
 Walrus suppressed the growth of long-run instabilities through the use of *patch jittering*. Patch jittering involves randomly translating the reference frame (with padding for boundaries)
-before each step. While the paper goes into more theoretical detail on why this works, the core idea is that the specific downsampling pattern leads to predictable accumulation
+before each step. While the paper provides a more theoretical explanation of why this works, the core idea is that the specific downsampling pattern leads to predictable accumulation
 of error and that randomizing this process can help alleviate this pathology.
 
 ### Adaptive Compute
 
-To handle varying compute budgets and problem complexities, we also employ [stride modulation](https://arxiv.org/pdf/2507.09264) to allow users to adjust
-their downstream resolution. During pretraining, this was used to keep internal resolution fairly consistent (32/33 per dim in 2D, 16/17 in 3D). In this approach, the downsampling
+To handle varying compute budgets and problem complexities, we also employ [stride modulation](https://arxiv.org/pdf/2507.09264) to allow users to adjust their downstream resolution. During pretraining, this was used to keep internal resolution fairly consistent (32/33 per dim in 2D, 16/17 in 3D). In this approach, the downsampling
 layers of the encoder/decoder will dynamically adjust their stride based on a target internal resolution. 
 
 ### Efficient Training
