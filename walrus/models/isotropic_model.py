@@ -3,6 +3,7 @@ from functools import reduce
 from operator import mul
 from typing import Callable, List, Optional
 
+import warnings
 import numpy as np
 import torch
 import torch.nn as nn
@@ -430,3 +431,8 @@ class IsotropicModel(nn.Module):
             x = x.squeeze(-1)
         # Return T, B, C, H, [W], [D]
         return x  # TODO - Return attention maps for debugging
+
+    def compile(self, **kwargs) -> None:
+        warnings.warn("IsotropicModel.compile() currently only supports torch compilation for IsotropicModel.blocks. Note that torch.compile(IsotropicModel) will attempt to compile the entire forward call instead", UserWarning)
+        for blk in self.blocks:
+            blk.compile(**kwargs)
