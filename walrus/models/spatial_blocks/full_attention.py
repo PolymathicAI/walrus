@@ -113,7 +113,7 @@ class FullAttention(nn.Module):
         input = x.clone()
         x = self.norm1(x)
 
-        fused_ff_qkv = rearrange(x, "b c h w d -> b h w d c")
+        fused_ff_qkv = rearrange(x, "b c h w d -> b h w d c").contiguous()
         ff, q, k, v = self.fused_ff_qkv(fused_ff_qkv).split(self.fused_dims, dim=-1)
 
         # Split into heads and process q, k
